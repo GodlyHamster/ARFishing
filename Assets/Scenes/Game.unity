@@ -1045,6 +1045,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11cfef126ee012f4f8079b77bf29d475, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bobberPrefab: {fileID: 4602885254295247697, guid: d7fb3ceea4065b24db18690e5569cd4a,
+    type: 3}
+  bobberPreviewMaterial: {fileID: 2100000, guid: 78484000004bf6d4ebc251b7c4c14d5a,
+    type: 2}
+  trackerManager: {fileID: 2512387470422636670}
 --- !u!114 &1109549920
 MonoBehaviour:
   m_ObjectHideFlags: 0
