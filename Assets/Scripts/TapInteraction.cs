@@ -12,16 +12,11 @@ public class TapInteraction : MonoBehaviour
 
     [SerializeField]
     private GameObject bobberPrefab;
-    [SerializeField]
-    private Material bobberPreviewMaterial;
 
     [SerializeField]
     private ARTrackedImageManager trackerManager;
 
-    private GameObject bobber;
-    private GameObject previewBobber;
-
-    private bool bobberInWater = false;
+    private Bobber bobber;
 
     private Vector3 tapLocation;
     private bool isHolding;
@@ -41,11 +36,8 @@ public class TapInteraction : MonoBehaviour
         foreach (var added in args.added)
         {
             Transform pondTransform = Pond.Instance.transform;
-            previewBobber = Instantiate(bobberPrefab, pondTransform.position, pondTransform.rotation, pondTransform);
-            previewBobber.GetComponentInChildren<MeshRenderer>().material = bobberPreviewMaterial;
-            bobber = Instantiate(bobberPrefab, pondTransform.position, pondTransform.rotation, pondTransform);
-            bobber.SetActive(false);
-            previewBobber.SetActive(false);
+            GameObject bobberObj = Instantiate(bobberPrefab, pondTransform.position, pondTransform.rotation, pondTransform);
+            bobber = bobberObj.GetComponent<Bobber>();
         }
     }
 
@@ -61,6 +53,7 @@ public class TapInteraction : MonoBehaviour
     {
         fps.text = (1f / Time.deltaTime).ToString("F2") + "fps";
 
+        if (bobber == null) return;
         if (isHolding)
         {
             RaycastHit hit;
@@ -68,25 +61,14 @@ public class TapInteraction : MonoBehaviour
             Debug.DrawRay(camRay.origin, camRay.direction * 10, Color.magenta);
             if (Physics.Raycast(camRay.origin, camRay.direction, out hit, Mathf.Infinity))
             {
-                bobberInWater = false;
                 Transform objectTransform = hit.transform;
-                previewBobber.transform.position = hit.point;
-                bobber.transform.position = hit.point;
-                bobber.SetActive(false);
-                previewBobber.SetActive(true);
+
+                bobber.PreviewBobber(hit.point);
             }
         }
-        else
+        else if (bobber.isPreviewing)
         {
-            if (previewBobber != null)
-            {
-                if (previewBobber.activeSelf) bobberInWater = true;
-                previewBobber.SetActive(false);
-            }
-        }
-        if (bobberInWater)
-        {
-            bobber?.SetActive(true);
+            bobber.Release();
         }
     }
 
