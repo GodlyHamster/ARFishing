@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.XR.ARFoundation;
@@ -35,9 +34,13 @@ public class TapInteraction : MonoBehaviour
     {
         foreach (var added in args.added)
         {
-            Transform pondTransform = Pond.Instance.transform;
-            GameObject bobberObj = Instantiate(bobberPrefab, pondTransform.position, pondTransform.rotation, pondTransform);
-            bobber = bobberObj.GetComponent<Bobber>();
+            if (added.transform.gameObject.GetComponent<Pond>())
+            {
+                Transform pondTransform = Pond.Instance.transform;
+                GameObject bobberObj = Instantiate(bobberPrefab, pondTransform.position, pondTransform.rotation, pondTransform);
+                bobber = bobberObj.GetComponent<Bobber>();
+                Pond.Instance.SetBobber(bobber);
+            }
         }
     }
 
@@ -75,6 +78,14 @@ public class TapInteraction : MonoBehaviour
     private void OnTap(InputValue value)
     {
         tapping.text = "Tap: "+ value.isPressed;
+        if (CatchScreenManager.Instance.isScreenActive)
+        {
+            CatchScreenManager.Instance.CloseScreen();
+        }
+        if (bobber.isInWater)
+        {
+            bobber.ReelIn();
+        }
     }
 
     private void OnHold(InputValue value)

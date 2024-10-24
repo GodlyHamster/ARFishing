@@ -20,6 +20,7 @@ public class Fish
     private float waitTime = 2f;
     private bool reachedNewPoint = false;
     Vector3 randomPoint = Vector3.zero;
+    private bool attachedToBobber = false;
 
     public void Start()
     {
@@ -30,6 +31,8 @@ public class Fish
     {
         //make fish move smooth and eat bobber
         waitTime -= Time.deltaTime;
+        if (attachedToBobber) return;
+
         if (!reachedNewPoint && waitTime <= 0)
         {
             Transform transform = connectedObject.transform;
@@ -38,11 +41,22 @@ public class Fish
             {
                 reachedNewPoint = true;
             }
+            if (Vector3.Distance(connectedObject.transform.position, pond.bobber.position) <= 0.01f && pond.bobber.isInWater)
+            {
+                attachedToBobber = pond.bobber.AttachFish(fishInfo);
+            }
         }
         if (reachedNewPoint)
         {
             waitTime = 2f;
-            randomPoint = pond.RandomPondPoint();
+            if (pond.bobber.isInWater && !pond.bobber.hasFishAttached)
+            {
+                randomPoint = pond.bobber.position;
+            }
+            else
+            {
+                randomPoint = pond.RandomPondPoint();
+            }
             reachedNewPoint = false;
         }
     }

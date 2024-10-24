@@ -31,6 +31,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "Accelerate",
+                    "type": "Value",
+                    "id": "bf89224b-9a6b-45fa-8778-23c52233b984",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -39,6 +48,17 @@
                     "id": "0aec313f-36af-4952-9e4d-5b76ad9ef7d8",
                     "path": "<Touchscreen>/primaryTouch/tap",
                     "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Tap",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b5c0ce25-7fdf-4ae0-a6d3-d7b797e60a56",
+                    "path": "<Pointer>/press",
+                    "interactions": "Tap",
                     "processors": "",
                     "groups": "",
                     "action": "Tap",
@@ -86,6 +106,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Hold",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6571bab4-4ce1-4298-9c91-fd6f67cda1b1",
+                    "path": "<Accelerometer>/acceleration",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Accelerate",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

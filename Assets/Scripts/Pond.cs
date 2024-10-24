@@ -19,6 +19,8 @@ public class Pond : MonoBehaviour
     [SerializeField]
     private Bounds pondBounds = new Bounds();
 
+    public Bobber bobber { get; private set; }
+
     private DebugText fishPondDebug = new DebugText("null");
 
     private void Awake()
@@ -52,12 +54,16 @@ public class Pond : MonoBehaviour
         }
     }
 
+    public void SetBobber(Bobber bobber)
+    {
+        this.bobber = bobber;
+    }
+
     private void AddRandomFish()
     {
         FishScriptable fish = Instantiate(fishLibrary[Random.Range(0, fishLibrary.Count)]);
         GameObject fishObject = Instantiate(fishPrefab, transform.position, transform.rotation, transform);
         fishObject.transform.position = RandomPondPoint();
-        //fishObject.GetComponentInChildren<SpriteRenderer>().sprite = fish.shadow;
         fishObject.GetComponent<MeshFilter>().mesh = fish.fishMesh;
         pondFishes.Add(new Fish(fish, this, fishObject));
     }
