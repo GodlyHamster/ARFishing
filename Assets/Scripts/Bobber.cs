@@ -13,8 +13,8 @@ public class Bobber : MonoBehaviour
 
     private MeshRenderer meshRenderer;
 
-    private FishScriptable attachedFish = null;
-    public bool hasFishAttached { get { return attachedFish != null; } }
+    private Fish fish = null;
+    public bool hasFishAttached { get { return fish != null; } }
 
     private void Awake()
     {
@@ -27,11 +27,11 @@ public class Bobber : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    public bool AttachFish(FishScriptable fish)
+    public bool AttachFish(Fish fish)
     {
-        if (attachedFish == null)
+        if (this.fish == null)
         {
-            attachedFish = fish;
+            this.fish = fish;
             return true;
         }
         return false;
@@ -56,9 +56,10 @@ public class Bobber : MonoBehaviour
     public void ReelIn()
     {
         isInWater = false;
-        if (attachedFish != null)
+        if (fish != null)
         {
-            CatchScreenManager.Instance.CaughtFish(attachedFish);
+            CatchScreenManager.Instance.CaughtFish(fish);
+            fish = null;
         }
         gameObject.SetActive(false);
     }

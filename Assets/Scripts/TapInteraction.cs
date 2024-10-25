@@ -82,7 +82,7 @@ public class TapInteraction : MonoBehaviour
         {
             CatchScreenManager.Instance.CloseScreen();
         }
-        if (bobber.isInWater)
+        if (bobber != null && bobber.isInWater)
         {
             bobber.ReelIn();
         }

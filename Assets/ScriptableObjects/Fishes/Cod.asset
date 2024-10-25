@@ -12,9 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf17544b998fdc44f9f06ca7e3ab2b3f, type: 3}
   m_Name: Cod
   m_EditorClassIdentifier: 
-  description: Codded out
+  name: Cod
+  description: You've Cod to be kidding me!
   rarity: 1
   spawnChance: 70
+  minWaitTime: 2
+  maxWaitTime: 4
   sprite: {fileID: 21300000, guid: 18a4a8235c0d5814fbfb3645274f477e, type: 3}
   shadow: {fileID: 21300000, guid: 050a9ceaacd3e6b44b3caaa01fa4687f, type: 3}
   fishMesh: {fileID: -4468458986668092360, guid: b6158c60913b50e41885f836a13993c8,

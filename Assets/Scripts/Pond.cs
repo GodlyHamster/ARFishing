@@ -6,6 +6,9 @@ public class Pond : MonoBehaviour
     public static Pond Instance { get; private set; }
 
     [SerializeField]
+    private int fishes = 3;
+
+    [SerializeField]
     private List<FishScriptable> fishLibrary = new List<FishScriptable>();
 
     [SerializeField]
@@ -30,19 +33,11 @@ public class Pond : MonoBehaviour
 
     private void Start()
     {
-        for (int i = 0; i < 3; i++)
+        UIDebugManager.instance.AddDebug(fishPondDebug);
+
+        for (int i = 0; i < fishes; i++)
         {
             AddRandomFish();
-        }
-
-        if (debugPond)
-        {
-            fishPondDebug.text = "Pond:";
-            for (int i = 0; i < pondFishes.Count; i++)
-            {
-                fishPondDebug.text += "\n\t" + pondFishes[i].name;
-            }
-            UIDebugManager.instance.AddDebug(fishPondDebug);
         }
     }
 
@@ -51,6 +46,15 @@ public class Pond : MonoBehaviour
         foreach (var fish in pondFishes)
         {
             fish.Update();
+        }
+
+        if (debugPond)
+        {
+            fishPondDebug.text = "Pond:";
+            for (int i = 0; i < pondFishes.Count; i++)
+            {
+                fishPondDebug.text += "\n\t" + pondFishes[i].fishInfo.name;
+            }
         }
     }
 
@@ -66,6 +70,12 @@ public class Pond : MonoBehaviour
         fishObject.transform.position = RandomPondPoint();
         fishObject.GetComponent<MeshFilter>().mesh = fish.fishMesh;
         pondFishes.Add(new Fish(fish, this, fishObject));
+    }
+
+    public void RemoveFish(Fish fish)
+    {
+        pondFishes.Remove(fish);
+        Destroy(fish.connectedObject);
     }
 
     public Vector3 RandomPondPoint()

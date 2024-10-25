@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Fish
@@ -8,55 +7,60 @@ public class Fish
         this.fishInfo = fishInfo;
         this.pond = pond;
         this.connectedObject = connectedObject;
-        this.name = fishInfo.name;
         Start();
     }
 
-    public string name { get; private set; }
-    private GameObject connectedObject;
-    private FishScriptable fishInfo;
+    public FishScriptable fishInfo { get; private set; }
+    public GameObject connectedObject { get; private set; }
     private Pond pond;
 
-    private float waitTime = 2f;
+    private float waitTime = 0f;
+    private float moveTime = 0f;
     private bool reachedNewPoint = false;
-    Vector3 randomPoint = Vector3.zero;
+    private Vector3 startingPoint = Vector3.zero;
+    private Vector3 endPoint = Vector3.zero;
+    private float distance = 0f;
     private bool attachedToBobber = false;
 
     public void Start()
     {
-        randomPoint = pond.RandomPondPoint();
+        startingPoint = connectedObject.transform.position;
+        endPoint = pond.RandomPondPoint();
     }
 
     public void Update()
     {
-        //make fish move smooth and eat bobber
         waitTime -= Time.deltaTime;
         if (attachedToBobber) return;
 
-        if (!reachedNewPoint && waitTime <= 0)
+        if (!reachedNewPoint && waitTime <= 0f)
         {
             Transform transform = connectedObject.transform;
-            transform.position = Vector3.MoveTowards(transform.position, randomPoint, Time.deltaTime / 2f);
-            if (Vector3.Distance(connectedObject.transform.position, randomPoint) <= 0.01f)
+            moveTime += Time.deltaTime / 2f / distance;
+            transform.position = Vector3.Lerp(startingPoint, endPoint, moveTime);
+            if (Vector3.Distance(connectedObject.transform.position, endPoint) <= 0.01f)
             {
                 reachedNewPoint = true;
             }
             if (Vector3.Distance(connectedObject.transform.position, pond.bobber.position) <= 0.01f && pond.bobber.isInWater)
             {
-                attachedToBobber = pond.bobber.AttachFish(fishInfo);
+                attachedToBobber = pond.bobber.AttachFish(this);
             }
         }
         if (reachedNewPoint)
         {
-            waitTime = 2f;
+            waitTime = Random.Range(fishInfo.minWaitTime, fishInfo.maxWaitTime);
+            startingPoint = connectedObject.transform.position;
             if (pond.bobber.isInWater && !pond.bobber.hasFishAttached)
             {
-                randomPoint = pond.bobber.position;
+                endPoint = pond.bobber.position;
             }
             else
             {
-                randomPoint = pond.RandomPondPoint();
+                endPoint = pond.RandomPondPoint();
             }
+            distance = Vector3.Distance(startingPoint, endPoint);
+            moveTime = 0f;
             reachedNewPoint = false;
         }
     }

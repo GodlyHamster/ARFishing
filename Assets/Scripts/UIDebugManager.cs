@@ -8,6 +8,9 @@ public class UIDebugManager : MonoBehaviour
     public static UIDebugManager instance;
 
     [SerializeField]
+    private bool hideDebugInBuild = true;
+
+    [SerializeField]
     private TextMeshProUGUI debugText;
 
     private List<DebugText> _debugLines = new List<DebugText>();
@@ -20,6 +23,7 @@ public class UIDebugManager : MonoBehaviour
     private void Update()
     {
         debugText.text = "";
+        if (hideDebugInBuild) return;
         foreach (var line in _debugLines) { 
             debugText.text += line.text + "\n";
         }
