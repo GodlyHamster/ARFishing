@@ -67,7 +67,7 @@ public class Pond : MonoBehaviour
     {
         FishScriptable fish = Instantiate(fishLibrary[Random.Range(0, fishLibrary.Count)]);
         GameObject fishObject = Instantiate(fishPrefab, transform.position, transform.rotation, transform);
-        fishObject.transform.position = RandomPondPoint();
+        fishObject.transform.localPosition = RandomPondPoint();
         fishObject.GetComponent<MeshFilter>().mesh = fish.fishMesh;
         pondFishes.Add(new Fish(fish, this, fishObject));
     }
@@ -76,6 +76,7 @@ public class Pond : MonoBehaviour
     {
         pondFishes.Remove(fish);
         Destroy(fish.connectedObject);
+        AddRandomFish();
     }
 
     public Vector3 RandomPondPoint()
@@ -86,6 +87,7 @@ public class Pond : MonoBehaviour
             Random.Range(pondBounds.min.z, pondBounds.max.z)
             );
         Vector3 localPoint = transform.TransformPoint(randomPoint);
+        localPoint = transform.InverseTransformPoint(localPoint);
         return localPoint;
     }
 

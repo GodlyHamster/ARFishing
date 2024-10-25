@@ -5,7 +5,9 @@ public class Bobber : MonoBehaviour
     public bool isPreviewing { get; private set; } = false;
     public bool isInWater { get; private set; } = false;
 
-    public Vector3 position { get {  return transform.position; } }
+    public Vector3 position { get {
+            return Pond.Instance.transform.InverseTransformPoint(transform.position);
+        } }
 
     [SerializeField]
     private Material previewMaterial;

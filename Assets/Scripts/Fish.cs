@@ -24,7 +24,7 @@ public class Fish
 
     public void Start()
     {
-        startingPoint = connectedObject.transform.position;
+        startingPoint = connectedObject.transform.localPosition;
         endPoint = pond.RandomPondPoint();
     }
 
@@ -36,13 +36,13 @@ public class Fish
         if (!reachedNewPoint && waitTime <= 0f)
         {
             Transform transform = connectedObject.transform;
-            moveTime += Time.deltaTime / 2f / distance;
-            transform.position = Vector3.Lerp(startingPoint, endPoint, moveTime);
-            if (Vector3.Distance(connectedObject.transform.position, endPoint) <= 0.01f)
+            moveTime += Time.deltaTime / distance;
+            transform.localPosition = Vector3.Lerp(startingPoint, endPoint, moveTime);
+            if (Vector3.Distance(connectedObject.transform.localPosition, endPoint) <= 0.01f)
             {
                 reachedNewPoint = true;
             }
-            if (Vector3.Distance(connectedObject.transform.position, pond.bobber.position) <= 0.01f && pond.bobber.isInWater)
+            if (Vector3.Distance(connectedObject.transform.localPosition, pond.bobber.position) <= 0.01f && pond.bobber.isInWater)
             {
                 attachedToBobber = pond.bobber.AttachFish(this);
             }
@@ -50,7 +50,7 @@ public class Fish
         if (reachedNewPoint)
         {
             waitTime = Random.Range(fishInfo.minWaitTime, fishInfo.maxWaitTime);
-            startingPoint = connectedObject.transform.position;
+            startingPoint = connectedObject.transform.localPosition;
             if (pond.bobber.isInWater && !pond.bobber.hasFishAttached)
             {
                 endPoint = pond.bobber.position;
