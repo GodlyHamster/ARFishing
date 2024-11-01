@@ -50,9 +50,11 @@ MonoBehaviour:
   fishLibrary:
   - {fileID: 11400000, guid: d1f208587202b0046a3a3cab4f03d702, type: 2}
   - {fileID: 11400000, guid: 4ff24f1bce5d6ba40ac89c89b8c7ce47, type: 2}
+  - {fileID: 11400000, guid: ea6594cb5f71f004098abde7b0d4c0a3, type: 2}
+  - {fileID: 11400000, guid: 07f6b58785d87684daf87976a0256fb7, type: 2}
   fishPrefab: {fileID: 4177261375223351654, guid: 1b9dd1910eb30c94c87424939d212665,
     type: 3}
-  debugPond: 1
+  debugPond: 0
   pondBounds:
     m_Center: {x: 0, y: -0.15, z: 0}
     m_Extent: {x: 0.7, y: 0, z: 0.7}
