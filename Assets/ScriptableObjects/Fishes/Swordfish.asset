@@ -15,7 +15,7 @@ MonoBehaviour:
   name: Swordfish
   description: A new kitchen knife!
   rarity: 5
-  spawnChance: 13
+  spawnChance: 18
   minWaitTime: 3
   maxWaitTime: 7
   sprite: {fileID: 21300000, guid: d6f1efde41e44b44fbec24f998e207c4, type: 3}

@@ -10,6 +10,9 @@ public class Bobber : MonoBehaviour
         } }
 
     [SerializeField]
+    private ParticleSystem splashParticle;
+
+    [SerializeField]
     private Material previewMaterial;
     private Material startMaterial;
 
@@ -53,6 +56,7 @@ public class Bobber : MonoBehaviour
         isPreviewing = false;
         isInWater = true;
         meshRenderer.material = startMaterial;
+        splashParticle.Play();
     }
 
     public void ReelIn()

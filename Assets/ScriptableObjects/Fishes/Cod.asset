@@ -15,7 +15,7 @@ MonoBehaviour:
   name: Cod
   description: You've Cod to be kidding me!
   rarity: 1
-  spawnChance: 70
+  spawnChance: 60
   minWaitTime: 2
   maxWaitTime: 4
   sprite: {fileID: 21300000, guid: 18a4a8235c0d5814fbfb3645274f477e, type: 3}

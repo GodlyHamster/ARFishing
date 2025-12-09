@@ -15,7 +15,7 @@ MonoBehaviour:
   name: Bass
   description: Out of tune..
   rarity: 1
-  spawnChance: 50
+  spawnChance: 70
   minWaitTime: 1
   maxWaitTime: 5
   sprite: {fileID: 21300000, guid: 57456d29b5e97934bafd123fd238a798, type: 3}
